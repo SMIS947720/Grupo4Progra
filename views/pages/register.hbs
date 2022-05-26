@@ -1,0 +1,30 @@
+<div class="row justify-content-md-center">
+    <h1 class="display-5">New Employee</h1></br>
+    <div class="col-md-4">
+        {{#if message}}
+           <div class="alert {{messageClass}}">
+               {{message}}
+           </div>
+        {{/if}}
+        <form method="post" action="/register">
+        <div class="form-group">
+            Full name
+            <input type="text" name="fulln" id="fulln" class="form-control">
+        </div>
+        <div class="form-group">
+            Email
+            <input type="text" name="email" id="email" class="form-control">
+        </div>
+        <div class="form-group">
+            PassWord
+            <input type="password" name="password" id="password" class="form-control">
+        </div>
+            <div class="form-group">
+            Confirm PassWord
+            <input type="password" name="cp" id="cp" class="form-control">
+        </div></br>
+        <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        
+    </div>
+</div>
