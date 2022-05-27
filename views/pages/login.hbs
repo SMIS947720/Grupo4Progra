@@ -1,6 +1,6 @@
 <div class="row justify-content-md-center">
-    <h1>Login</h1>
-    <div class="col-md-4" style="margin-top:10xp">
+   <center><h1 class="display-5" style="margin-top: 20px;">Login</h1></center></br>
+    <div class="col-md-4" style="margin-top:50px">
         {{#if message}}
            <div class="alert {{messageClass}}">
                {{message}}
@@ -11,14 +11,15 @@
         
         <div class="form-group">
             Email
-            <input type="text" name="email" id="email" class="form-control">
+            
+            <input type="text" name="email" id="email" class="form-control" placeholder="example@gmail.com">
         </div>
         <div class="form-group">
             PassWord
             <input type="password" name="password" id="password" class="form-control">
-        </div>
+        </div></br>
            
-        <button type="submit" class="btn btn-primary">Register</button>
+        <center><button type="submit" class="btn btn-info btn-lg">LOGIN</button></center>
         </form>
     </div>
 </div>

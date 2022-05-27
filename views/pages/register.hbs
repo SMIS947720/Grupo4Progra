@@ -1,6 +1,7 @@
+
 <div class="row justify-content-md-center">
-    <h1 class="display-5">New Employee</h1></br>
-    <div class="col-md-4">
+    <center><h1 class="display-5" style="margin-top:20px ;">New Employee</h1></center></br>
+    <div class="col-md-4" style="margin-top:50px;">
         {{#if message}}
            <div class="alert {{messageClass}}">
                {{message}}
@@ -8,12 +9,13 @@
         {{/if}}
         <form method="post" action="/register">
         <div class="form-group">
-            Full name
-            <input type="text" name="fulln" id="fulln" class="form-control">
+            Full Name
+            <input type="text" name="fulln" id="fulln" class="form-control" placeholder="write name">
         </div>
         <div class="form-group">
             Email
-            <input type="text" name="email" id="email" class="form-control">
+            
+            <input type="text" name="email" id="email" class="form-control" placeholder="email@example.com">
         </div>
         <div class="form-group">
             PassWord
@@ -23,7 +25,7 @@
             Confirm PassWord
             <input type="password" name="cp" id="cp" class="form-control">
         </div></br>
-        <button type="submit" class="btn btn-primary">Register</button>
+       <center><button  type="submit" class="btn btn-info btn-lg">REGISTER</button></center> 
         </form>
         
     </div>
