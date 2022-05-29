@@ -1,0 +1,29 @@
+{{> header}}
+
+<center><h1 class="display-5" style="margin-top: 20px;">{{viewTitle}}</h1></center></br>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Department name</th>
+      <th scope="col">Location ID</th>
+      <th scope="col">Cost Center</th>
+      <th scope="col">Action buttons</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each list}}
+      <tr>
+        <td>{{this._id}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.location}}</td>
+        <td>{{this.costcenter}}</td>
+        <td>
+            <a href="/department/{{this._id}}">Edit</a>
+            <a href="/department/delete/{{this._id}}"
+            onclick="return confirm('¿Esta seguro de que desea eliminar el registro?');">Delete</a>
+        </td> 
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

@@ -1,0 +1,29 @@
+{{> header}}
+
+<center><h1 class="display-5" style="margin-top: 20px;">{{viewTitle}}</h1></center></br>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Project name</th>
+      <th scope="col">Project start date</th>
+      <th scope="col">Project end date</th>
+      <th scope="col">Action buttons</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each list}}
+      <tr>
+        <td>{{this._id}}</td>
+        <td>{{this.projectname}}</td>
+        <td>{{this.projectstart}}</td>
+        <td>{{this.projectend}}</td>
+        <td>
+            <a href="/project/{{this._id}}">Edit</a>
+            <a href="/project/delete/{{this._id}}"
+            onclick="return confirm('¿Esta seguro de que desea eliminar el registro?');">Delete</a>
+        </td> 
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

@@ -1,0 +1,39 @@
+{{> header}}
+
+<center><h1 class="display-5" style="margin-top: 20px;">{{viewTitle}}</h1></center></br>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Hire date</th>
+      <th scope="col">Job ID</th>
+      <th scope="col">Salary</th>
+      <th scope="col">Commission</th>
+      <th scope="col">Action buttons</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each list}}
+      <tr>
+        <td>{{this._id}}</td>
+        <td>{{this.firstname}}</td>
+        <td>{{this.lastname}}</td>
+        <td>{{this.email}}</td>
+        <td>{{this.phone}}</td>
+        <td>{{this.hiredate}}</td>
+        <td>{{this.jobid}}</td>
+        <td>{{this.salary}}</td>
+        <td>{{this.commission}}</td>
+        <td>
+            <a href="/employee/{{this._id}}">Edit</a>
+            <a href="/employee/delete/{{this._id}}"
+            onclick="return confirm('¿Esta seguro de que desea eliminar el registro?');">Delete</a>
+        </td> 
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

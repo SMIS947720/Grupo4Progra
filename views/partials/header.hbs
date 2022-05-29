@@ -1,16 +1,34 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-  <a class="navbar-brand" href="#">Company KHO</a>
+  <a class="navbar-brand" href="/home">Company KHO</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="/home">Home</a>
-      <a class="nav-item nav-link" href="#">en espera</a>
-      <a class="nav-item nav-link" href="#">en espera</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Create New Registers
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="/employee">New Employee</a></li>
+          <li><a class="dropdown-item" href="/department">New Department</a></li>
+          <li><a class="dropdown-item" href="/project">New Project</a></li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          List of Registers
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="/employee/listE">Employees' List</a></li>
+          <li><a class="dropdown-item" href="/department/listD">Departments' List</a></li>
+          <li><a class="dropdown-item" href="/project/listP">Projects' List</a></li>
+        </ul>
+      </li>
     </div>
     <span>
-      <a href="/logout" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Logout</a> 
+      <a href="/logout" class="btn btn-sm btn-outline-danger" role="button" aria-pressed="true" align="right">Logout</a> 
     </span>
   </div>
 </nav>

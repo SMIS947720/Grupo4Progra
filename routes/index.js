@@ -1,12 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const data = require('../userData');
 const methods = require('../methods');
+const User = require('../models/user');
 
-
-
-//rutas
-
+//Rutas
 const registerR = "../views/pages/register";
 const loginR = "../views/pages/login";
 
@@ -15,89 +12,102 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'COMPANY PROGRAMMING KHO' });
 });
 
-
-router.get ('/home', function(req, res, next){
-  res.render ('home',{title1: "Bienvenido"});
-})
-router.get('/register', (req, res) => {
-  res.render(registerR);
+router.get ('/home', function(req, res){
+  if (req.user) {
+    res.render('home', {title1: "Welcome to our Website"});
+  } else {
+    res.render(loginR, {
+      message: "Por favor, inicie sesión para continuar",
+      messageClass: "alert-danger"
+    });
+  }
 });
 
+//Metodos GET de las paginas Login y Register
+//LOGIN
 router.get('/login', (req, res) => {
   res.render(loginR);
 });
 
-
 //REGISTER
+router.get('/register', (req, res) => {
+  res.render(registerR);
+});
 
-router.post('/register', (req, res) => {
-  const {fulln, email, password, cp } = req.body;
-  
-  if (password === cp){
-    if (data.data.find(dat => dat.email === email)) {
-      res.render(registerR,{
-        message: "El usuario ya esta registrado",
+//Metodos POST de las paginas Login y Register
+//LOGIN
+router.post ('/login', async (req, res) => {
+  const {email, password } = req.body;
+  const hashedPassword = methods.getHashedPassword(password);
+
+  user = await User.findOne({ email: email, password: hashedPassword })
+
+  .then (user => {
+     if(user){
+    const authToken = methods.generateAuthToken();
+    //almacenar el token de autenticacion
+    methods.authTokens[authToken] = user;
+    res.cookie('AuthToken', authToken); // setting token
+    res.redirect("/home"); // redireccionar
+    } else {
+      res.render(loginR, {
+        message: "Usuario y password invalidos",
         messageClass: "alert-danger"
       });
-
     }
+  })
+});
 
-    const hashedPassword = methods.getHashedPassWord(password);
-
-    // actualizamos el array con el nuevo registro
- 
-    data.data.push({
-      fulln,
-      email,
-      password: hashedPassword
-    });
+//REGISTER
+router.post('/register', async (req, res) => {
+  const {fulln, email, password, cp } = req.body;
   
-    res.render(loginR,{
-      message: "El registro se ha completado",
-      messageClass: "alert-success"
-    });
+  try {
+    //verificar si el password coincide
+    if (password === cp) {
+    //validar si el correo existe
+    user = await User.findOne({ email: email })
+      .then(user => {
+        if(user){
+          res.render(registerR, {
+            message: "El usuario ya esta registrado",
+            messageClass: "alert-danger"
+        });
+      } else {
+        //encriptamos el password
+        const hashedPassword = methods.getHashedPassword(password);
+        //creamos un nuevo objeto a partir del modelo User
+        const userDB = new User({
+          'fulln': fulln,
+          'email': email,
+          'password': hashedPassword
+        })
+        //guardar los datos
+        userDB.save();
 
-  }else{
-    res.render(registerR,{
+        res.render(loginR, {
+          message: "El registro se ha completado",
+          messageClass: "alert-success"
+        });
+      }
+    })
+
+  } else {
+    res.render(registerR, {
       message: "El password no coincide",
       messageClass: "alert-danger"
     });
-    
+  }
+  } catch(error) {
+    console.log('error', error);
   }
 
 });
 
-//LOGIN
-
-
-router.post ('/login', (req, res) => {
-  const {email, password } = req.body;
-  const hashedPassword = methods.getHashedPassWord(password);
-
-  const dataUser = data.data.find(u => {
-    return u.email === email && hashedPassword === u.password;
-  });
-
-  if (dataUser){
-    const authToken = methods.generateAuthToken();
-
-    methods.authTokens[authToken] = dataUser;
-    res.cookie('AuthToken', authToken);
-    res.redirect("/home");
-
-  }else{
-    res.render(loginR, {
-      message: "Usuario y password invalidos",
-      messageClass: "alert-danger"
-    });
-  }
-});
-
-
-
-//logout
+//LOGOUT
 router.get('/logout',(req, res) => {
   res.clearCookie('AuthToken');
   return res.redirect('/');
 })
+
 module.exports = router;
